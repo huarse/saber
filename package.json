@@ -4,7 +4,7 @@
   "description": "A toolbox for http connect",
   "repository": {
     "type": "git",
-    "url": "git@git.code.tencent.com:berry/saber.git"
+    "url": "git@github.com:huarse/saber.git"
   },
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
