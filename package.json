@@ -1,0 +1,74 @@
+{
+  "name": "@irim/saber",
+  "version": "0.1.0",
+  "description": "A toolbox for http connect",
+  "repository": {
+    "type": "git",
+    "url": "git@git.code.tencent.com:berry/saber.git"
+  },
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "dist": "Saber",
+  "scripts": {
+    "lint": "eslint --fix --ext .js,.ts ./src",
+    "build:lib": "tsc --outDir lib --module CommonJS --target ES2018",
+    "build:esm": "tsc --outDir esm --module ES6 --target ES2018",
+    "build:dist": "rollup -c ./config/rollup.config.js",
+    "build": "npm run build:lib && npm run build:esm && npm run build:dist",
+    "prebuild": "npm run lint && npm run clear",
+    "clear": "rm -rf dist lib esm types",
+    "test": "jest --config=config/jest.config.js",
+    "test:watch": "jest --config=config/jest.config.js --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "author": {
+    "name": "Pluto",
+    "email": "huarse@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "Pluto",
+      "email": "huarse@gmail.com"
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@commitlint/cli": "~9.1.2",
+    "@commitlint/config-conventional": "~9.1.2",
+    "@rollup/plugin-json": "~4.1.0",
+    "@rollup/plugin-node-resolve": "~9.0.0",
+    "@types/jest": "^26.0.10",
+    "@typescript-eslint/eslint-plugin": "~3.10.1",
+    "@typescript-eslint/parser": "~3.10.1",
+    "eslint": "~7.7.0",
+    "husky": "~4.2.5",
+    "jest": "^26.4.2",
+    "rollup": "~2.26.5",
+    "rollup-plugin-node-builtins": "~2.1.2",
+    "rollup-plugin-terser": "~7.0.0",
+    "typescript": "^4.0.2"
+  },
+  "peerDependencies": {},
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "saber"
+  ],
+  "files": [
+    "lib",
+    "esm",
+    "dist",
+    "types"
+  ]
+}
