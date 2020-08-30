@@ -7,7 +7,7 @@ module.exports = {
     ['@babel/preset-env', {
       targets: {
         browsers: ['Chrome >= 65', 'Firefox >= 55', 'Safari >= 11'],
-        node: 'current',
+        // node: 'current',
       },
       // modules: false
     }],
