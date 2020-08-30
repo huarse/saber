@@ -8,7 +8,7 @@ import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import builtins from 'rollup-plugin-node-builtins';
-import { name, description, version, author, license, dist } from '../package.json';
+import { name, description, version, author, license, distName } from '../package.json';
 
 const banner = `/**
  * ${name} | ${description}
@@ -24,7 +24,7 @@ module.exports = [{
   output: {
     dir: 'dist',
     format: 'umd',
-    name: dist || 'Saber',
+    name: distName || 'Saber',
     banner,
   },
   external: [],
