@@ -50,7 +50,7 @@ export interface FetcherOptions extends Record<string, any> {
     /** 是否保留空的参数，默认 false */
     holdEmpty?: boolean;
     /** 数组处理方式 */
-    listHandler: ListHandlerType;
+    listHandler?: ListHandlerType;
   };
   /** fetch 出错时的默认错误信息 */
   fetchErrorMessge?: string;
