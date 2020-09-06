@@ -80,7 +80,7 @@ export default class Saber<T extends Record<string, any>> {
   }
 
   /** 加载 JS CDN 资源 */
-  public loadScript(src: string, options: JsLoaderOptions) {
+  public loadScript(src: string, options?: JsLoaderOptions) {
     return jsLoader(src, options);
   }
 }
