@@ -11,7 +11,6 @@ test('1 + 1 = 2', () => {
 
 test('#saber prototype', () => {
   expect(Saber.singleton).toStrictEqual(Saber.singleton);
-  expect(typeof Saber.prototype.createSocket).toBe('function');
   expect(typeof Saber.prototype.loadScript).toBe('function');
   expect(typeof Saber.prototype.request).toBe('function');
   expect(typeof Saber.prototype.use).toBe('function');

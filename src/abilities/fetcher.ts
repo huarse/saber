@@ -3,7 +3,7 @@
 // @create 2020/08/28 16:53
 
 import { FetcherOptions } from '../interfaces';
-import { serialize, keepProps } from '../utils/common';
+import { serialize, json2FormData, keepProps } from '../utils/common';
 
 const STATUS_MAP: Record<number, string> = {
   '400': 'Bad Request',
@@ -49,7 +49,7 @@ export default async function fetcher(
   };
 
   // 解构参数，只保留 fetch 需要的参数
-  const { data, payload, search, serializeOptions = {} as Record<string, any>, fetchErrorMessge } = options;
+  const { data, payload, search, dataType, serializeOptions = {} as Record<string, any>, fetchErrorMessge } = options;
   const fetchOption: RequestInit = keepProps(options, [
     'body', 'cache', 'credentials', 'headers', 'integrity',
     'keepalive', 'method', 'mode', 'redirect', 'referrer',
@@ -62,15 +62,30 @@ export default async function fetcher(
   const searchParams = search || (!isSender || payload ? data : null);
 
   if (isSender) { // PUT, POST
-    const sendData = payload || data;
-    const isFormData = sendData instanceof FormData;
+    let sendData = payload || data;
+    let isFormData = sendData instanceof FormData;
     const isPureData = sendData instanceof Blob || sendData instanceof ArrayBuffer;
     fetchOption.headers = { ...options.headers };
-    if (!isPureData) {
-      fetchOption.headers['Content-Type'] = isPureData ? 'multipart/form-data' : 'application/json;charset=utf-8';
-      fetchOption.body = ((isFormData || typeof sendData === 'string') ? sendData : JSON.stringify(sendData)) as BodyInit;
-    } else {
+
+    // 手动将 json 转换为 formData
+    if (dataType === 'formData' && !isFormData) {
+      sendData = json2FormData(sendData as Record<string, any>);
+      isFormData = true;
+    }
+
+    if (isPureData || typeof sendData === 'string') {
       fetchOption.body = sendData as BodyInit;
+    }
+
+    if (isFormData) {
+      fetchOption.body = sendData as BodyInit;
+      // formData 不能手动指定 content-type，否则在遇到文件上传场景时会报错
+      // fetchOption.headers['Content-Type'] = 'multipart/form-data';
+    } else if (isPureData) {
+      fetchOption.body = sendData as BodyInit;
+    } else {
+      fetchOption.body = (typeof sendData === 'string' ? sendData : JSON.stringify(sendData)) as BodyInit;
+      fetchOption.headers['Content-Type'] = 'application/json;charset=utf-8';
     }
   }
 

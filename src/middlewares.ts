@@ -15,7 +15,7 @@ const TYPE_MAPPING = {
   jsonp, upload, download,
 };
 
-export async function fillOption(ctx: Context) {
+export async function fillOptions(ctx: Context) {
   ctx.type = ctx.type || 'ajax';
   ctx.data = ctx.data || ctx.params || ctx.query;
   ctx.headers = ctx.headers || {};

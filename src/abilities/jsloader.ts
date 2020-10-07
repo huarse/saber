@@ -41,7 +41,7 @@ export default function jsLoader(src: string, options: JsLoaderOptions = {}) {
 
     QUEUE_STORE[baseSrc] = [{ resolve, reject }];
 
-    const handleError = (message) => {
+    const handleError = (message: string) => {
       if (options.ignoreError) {
         QUEUE_STORE[baseSrc].forEach(x => x.resolve(0));
       } else {

@@ -4,7 +4,7 @@
 ![license](https://img.shields.io/npm/l/@irim/saber)
 ![downloads](https://img.shields.io/npm/dw/@irim/saber)
 
-<!-- 一句话描述 -->
+数据请求工具箱
 
 ## Getting Started
 

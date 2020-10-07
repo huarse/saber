@@ -89,7 +89,7 @@ export function sleep(mill: number): Promise<void> {
 }
 
 /**
- * Return a random integer of [min, max] (inclusive min and max)
+ * 返回一个整数随机数 [min, max] (包含 min and max)
  */
 export function random(min?: number, max?: number): number {
   if (min === undefined && max === undefined) {
@@ -104,7 +104,7 @@ export function random(min?: number, max?: number): number {
 }
 
 /**
- * object serialize to query string
+ * JSON 序列化
  * @param params
  * @param holdEmpty 是否保留空参数
  * @param listHandler 数组处理方式, 默认 TILE
@@ -161,4 +161,25 @@ export function keepProps(obj: Record<string, any>, keys: string[], mode: 'KEEP'
   });
 
   return newObj;
+}
+
+/**
+ * 将 JSON 转化为 formData
+ * @param obj JSON data
+ */
+export function json2FormData(obj: Record<string, any> = {}): FormData {
+  if (obj instanceof FormData) {
+    return obj;
+  }
+
+  const fd = new FormData();
+
+  for (const key in obj) {
+    if (Reflect.has(obj, key)) {
+      const value = obj[key];
+      fd.append(key, value);
+    }
+  }
+
+  return fd;
 }

@@ -41,6 +41,8 @@ export interface FetcherOptions extends Record<string, any> {
   search?: Record<string, any>;
   /** 请求方法，默认是 GET */
   method?: FetchMethod;
+  /** 传输数据类型 (仅 put|post 有效)，默认是 json */
+  dataType?: 'json' | 'formData';
   /** 请求头 */
   headers?: Record<string, any>;
   /** cookie 凭证发送策略, default: same-origin */

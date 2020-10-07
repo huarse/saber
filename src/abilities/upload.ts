@@ -1,7 +1,6 @@
 // http upload
 // @author MOYAN <moyan@come-future.com>
 // @create 2020/08/30 11:20
-// TODO 多文件上传需要优化
 
 import { UploadOptons } from '../interfaces';
 import fetcher from './fetcher';
@@ -12,11 +11,13 @@ export default async function upload(api: string, options: UploadOptons) {
     ...options,
   };
 
-  let formData = new FormData();
+  let fd: FormData;
 
   if (options.payload instanceof FormData) {
-    formData = options.payload;
+    fd = options.payload;
     options.payload = {};
+  } else {
+    fd = new FormData();
   }
 
   let file = options.file;
@@ -25,23 +26,23 @@ export default async function upload(api: string, options: UploadOptons) {
   }
 
   if (file && file.file) {
-    formData.append(file.name || 'file', file.file);
+    fd.append(file.name || 'file', file.file);
   }
 
   if (typeof options.payload === 'object') {
     for (const name in options.payload) {
-      if (Object.prototype.hasOwnProperty.call(options.payload, name)) {
+      if (Reflect.has(options.payload, name)) {
         const value = options.payload[name];
-        formData.append(name, value);
+        fd.append(name, value);
       }
     }
   }
 
-  const { file: file2, payload, ...fetchOptions } = options;
+  const { file: _, payload, ...fetchOptions } = options;
 
   return fetcher(api, {
     method: 'POST',
-    payload: formData,
+    payload: fd,
     ...fetchOptions,
   });
 }

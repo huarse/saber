@@ -3,9 +3,8 @@
 // @create 2020/08/30 12:28
 
 import { Context, MiddlewareFunction } from './interfaces';
-import Socket, { SocketProps } from './abilities/socket';
 import jsLoader, { JsLoaderOptions } from './abilities/jsloader';
-import { fillOption, adapter, delay, printLogger } from './middlewares';
+import { fillOptions, adapter, delay, printLogger } from './middlewares';
 import createApplyChain from './utils/apply-chain';
 
 let instance = null;
@@ -27,7 +26,7 @@ export default class Saber<T extends Record<string, any>> {
   }
 
   private _init() {
-    this.use(fillOption, -1000);
+    this.use(fillOptions, -1000);
     this.use(printLogger);
     this.use(delay);
     this.use(adapter, 1000);
@@ -71,13 +70,6 @@ export default class Saber<T extends Record<string, any>> {
 
   /** alias for request */
   invoke = this.request;
-
-  /** 创建一个 socket 连接，并立即打开 */
-  public createSocket(props: SocketProps, isOpen = true) {
-    const socket = new Socket(props);
-    isOpen && socket.open();
-    return socket;
-  }
 
   /** 加载 JS CDN 资源 */
   public loadScript(src: string, options?: JsLoaderOptions) {
