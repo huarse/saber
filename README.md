@@ -94,6 +94,7 @@ logger.warn('hello world~');
 ## CHANGELOG
 
 <!-- - **version**: change logs -->
+- **1.1.0**: 移除 socket 能力，fetcher 方法增加 `dataType` 参数
 
 ## LICENSE
 
