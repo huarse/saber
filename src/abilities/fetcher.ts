@@ -54,7 +54,7 @@ export default async function fetcher(
     'body', 'cache', 'credentials', 'headers', 'integrity',
     'keepalive', 'method', 'mode', 'redirect', 'referrer',
     'referrerPolicy', 'signal',
-  ]);
+  ], 'KEEP');
 
   // POST, PUT
   const isSender = /^p/i.test(options.method);
