@@ -51,16 +51,7 @@ serialize({ a: [100, 200] }, false, 'JOIN'); // a=100,200
 serialize({ a: [100, 200] }, false, 'REPEAT'); // a=100&a=200
 ```
 
-2. parseJSON 解析 JSON 字符串
-
-```ts
-import { parseJSON } from '@irim/saber';
-
-parseJSON('{ "a": 1001 }'); // { a: 1001 }
-parseJSON('invalid string'); // null
-```
-
-3. random 返回范围内的随机整数
+2. random 返回范围内的随机整数
 
 ```ts
 import { random } from '@irim/saber';
@@ -70,7 +61,7 @@ random(50); // 0 ~ 50
 random(25, 75); // 25 ~ 75
 ```
 
-4. uuid 返回一个唯一的 guid
+3. uuid 返回一个唯一的 guid
 
 ```ts
 import { uuid } from '@irim/saber';
@@ -78,17 +69,17 @@ import { uuid } from '@irim/saber';
 uuid(); // unique string, never repeat
 ```
 
-5. logger 打印日志
+4. logger 打印日志
 
 ```ts
 import { logger } from '@irim/saber';
 
 logger.debug('hello world~');
-logger.error('hello world~');
 logger.info('hello world~');
-logger.line('hello world~');
 logger.success('hello world~');
 logger.warn('hello world~');
+logger.error('hello world~');
+logger.line('hello world~');
 ```
 
 ## CHANGELOG

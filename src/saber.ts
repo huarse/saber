@@ -9,17 +9,23 @@ import createApplyChain from './utils/apply-chain';
 
 let instance = null;
 
-export default class Saber<T extends Record<string, any>> {
-  static singleton<T extends Record<string, any>>(): Saber<T> {
+export default class Saber<ExtendCtx extends Record<string, any>> {
+  /** 加载 JS CDN 资源 */
+  public static loadScript(src: string, options?: JsLoaderOptions) {
+    return jsLoader(src, options);
+  }
+
+  /** 单例模式 */
+  static singleton<ExtendCtx extends Record<string, any>>(): Saber<ExtendCtx> {
     if (instance) return instance;
 
-    instance = new Saber<T>();
+    instance = new Saber<ExtendCtx>();
     return instance;
   }
 
   private _middlewares: MiddlewareFunction[] = [];
   private _middlewareMap = new Map<MiddlewareFunction, number>();
-  private _invoker: (options: Record<string, any>) => Promise<Context & T>;
+  private _invoker: (options: Record<string, any>) => Promise<Context & ExtendCtx>;
 
   constructor() {
     this._init();
@@ -53,7 +59,7 @@ export default class Saber<T extends Record<string, any>> {
     return this;
   }
 
-  run(api: string, options?: Partial<Context & T>) {
+  run(api: string, options?: Partial<Context & ExtendCtx>) {
     if (options && Reflect.has(options, 'next')) {
       throw new Error('options can not contain property: \'next\'');
     }
@@ -63,7 +69,7 @@ export default class Saber<T extends Record<string, any>> {
     return this._invoker({ api, ...options || {}});
   }
 
-  public async request(api: string, options?: Partial<Context & T>) {
+  public async request(api: string, options?: Partial<Context & ExtendCtx>) {
     const { response } = await this.run(api, options);
     return response;
   }
@@ -73,6 +79,6 @@ export default class Saber<T extends Record<string, any>> {
 
   /** 加载 JS CDN 资源 */
   public loadScript(src: string, options?: JsLoaderOptions) {
-    return jsLoader(src, options);
+    return Saber.loadScript(src, options);
   }
 }
