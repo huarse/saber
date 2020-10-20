@@ -15,7 +15,7 @@ clear:
 
 lib:
 	@echo '> compile to commonjs module ...'
-	@./node_modules/.bin/tsc --outDir lib --module CommonJS --target ES6
+	@./node_modules/.bin/tsc --outDir lib --module CommonJS --target ES5
 
 esm:
 	@echo '> compile to es module ...'
