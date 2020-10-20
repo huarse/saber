@@ -1,6 +1,6 @@
 {
   "name": "@irim/saber",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A toolbox for http connect",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "distName": "Saber",
   "scripts": {
     "lint": "eslint --fix --ext .js,.ts ./src",
-    "build:lib": "tsc --outDir lib --module CommonJS --target ES2018",
+    "build:lib": "tsc --outDir lib --module CommonJS --target ES5",
     "build:esm": "tsc --outDir esm --module ES6 --target ES2018",
     "build:dist": "rollup -c ./config/rollup.config.js",
     "build": "npm run build:lib && npm run build:esm && npm run build:dist",
