@@ -4,7 +4,7 @@
 ![license](https://img.shields.io/npm/l/@irim/saber)
 ![downloads](https://img.shields.io/npm/dw/@irim/saber)
 
-数据请求工具箱
+A toolbox for http connect.
 
 ## Getting Started
 
@@ -94,4 +94,4 @@ BSD-3-Clause License
 
 ## Contact Us
 
-[Pluto](mailto:huarse@gmail.com)
+[CAIHUAZHI](mailto:huarse@gmail.com)

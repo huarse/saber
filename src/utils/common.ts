@@ -1,5 +1,5 @@
 // some utils
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 00:12
 
 import { BaseType, ListHandlerType, LoggerTypes, } from '../interfaces';

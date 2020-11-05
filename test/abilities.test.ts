@@ -1,5 +1,5 @@
 // abilities unit test
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 17:47
 
 import 'isomorphic-fetch';

@@ -1,5 +1,5 @@
 // ajax fetch for ds net
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 16:53
 
 import { FetcherOptions } from '../interfaces';

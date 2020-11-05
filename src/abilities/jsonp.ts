@@ -1,5 +1,5 @@
 // jsonp ability
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/30 01:45
 
 import { JsonpOptions } from '../interfaces';

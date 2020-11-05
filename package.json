@@ -1,6 +1,6 @@
 {
   "name": "@irim/saber",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A toolbox for http connect",
   "repository": {
     "type": "git",
@@ -23,12 +23,12 @@
     "prepublishOnly": "npm run build"
   },
   "author": {
-    "name": "Pluto",
+    "name": "CAIHUAZHI",
     "email": "huarse@gmail.com"
   },
   "maintainers": [
     {
-      "name": "Pluto",
+      "name": "CAIHUAZHI",
       "email": "huarse@gmail.com"
     }
   ],
@@ -65,7 +65,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "keywords": [
-    "saber"
+    "saber", "fetch", "request"
   ],
   "files": [
     "lib",

@@ -1,5 +1,5 @@
 // js loader
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/30 01:28
 
 import { AnyFunction } from '../interfaces';

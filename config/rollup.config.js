@@ -1,5 +1,5 @@
 // rollup config file
-// @author Pluto <huarse@gmail.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2018/11/05
 // -----------
 // builtins & resolve: https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency
@@ -8,15 +8,14 @@ import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import builtins from 'rollup-plugin-node-builtins';
-import { name, description, version, author, license, distName } from '../package.json';
+import { name, description, version, license, distName } from '../package.json';
 
 const banner = `/**
  * ${name} | ${description}
  * @version ${version}
- * @author ${author.name} <${author.email}>
  * @license ${license}
  *
- * Copyright (C) 2020-present, Pluto Holding Limit.
+ * Copyright (C) 2020-present, CAIHUAZHI Holding Limit.
  */`;
 
 module.exports = [{

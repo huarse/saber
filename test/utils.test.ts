@@ -1,5 +1,5 @@
 // utils test
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 00:48
 
 import { serialize, parseJSON, isEmpty, noop, random, timestamp, uuid, keepProps, logger, sleep } from '../src';

@@ -1,5 +1,5 @@
 // http upload
-// @author MOYAN <moyan@come-future.com>
+// @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/30 11:20
 
 import { UploadOptons } from '../interfaces';
