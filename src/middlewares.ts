@@ -15,6 +15,7 @@ const TYPE_MAPPING = {
   jsonp, upload, download,
 };
 
+/** 填充参数 */
 export async function fillOptions(ctx: Context) {
   ctx.type = ctx.type || 'ajax';
   ctx.data = ctx.data || ctx.params || ctx.query;

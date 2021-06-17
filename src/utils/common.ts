@@ -107,7 +107,10 @@ export function random(min?: number, max?: number): number {
  * JSON 序列化
  * @param params
  * @param holdEmpty 是否保留空参数
- * @param listHandler 数组处理方式, 默认 TILE
+ * @param listHandler 数组处理方式, 默认 `TILE`
+ * - `TILE`: 平铺 `a[]=1&a[]=2`
+ * - `REPEAT`: 重复 `a=1&a=2`
+ * - `JOIN`: 用逗号连接 `a=1,2`
  */
 export function serialize(
   params: Record<string, BaseType | BaseType[]> | string,
