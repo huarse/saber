@@ -2,7 +2,7 @@
 // @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/30 12:28
 
-import { Context, MiddlewareFunction } from './interfaces';
+import { Context, MiddlewareFunction, RequestOptions } from './interfaces';
 import jsLoader, { JsLoaderOptions } from './abilities/jsloader';
 import { fillOptions, adapter, delay, printLogger } from './middlewares';
 import createApplyChain from './utils/apply-chain';
@@ -59,7 +59,7 @@ export default class Saber<ExtendCtx extends Record<string, any>> {
     return this;
   }
 
-  run(api: string, options?: Partial<Context & ExtendCtx>) {
+  run(api: string, options?: RequestOptions<ExtendCtx>) {
     if (options && Reflect.has(options, 'next')) {
       throw new Error('options can not contain property: \'next\'');
     }
@@ -69,7 +69,7 @@ export default class Saber<ExtendCtx extends Record<string, any>> {
     return this._invoker({ api, ...options || {}});
   }
 
-  public async request(api: string, options?: Partial<Context & ExtendCtx>) {
+  public async request(api: string, options?: RequestOptions<ExtendCtx>) {
     const { response } = await this.run(api, options);
     return response;
   }

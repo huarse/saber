@@ -4,10 +4,6 @@
 
 /** 基础非空类型 */
 export type BaseType = string | number | boolean;
-/** 单字母 */
-export type SingleChar = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z';
-/** 单数字 */
-export type SingleNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 /** 任意方法 */
 export type AnyFunction<T> = (...args: any) => T;
 
@@ -95,13 +91,14 @@ export interface Context extends FetcherOptions {
 
 export type MiddlewareFunction = (ctx: Context) => Promise<any>;
 
+/** 数据请求参数 */
+export type RequestOptions<ExtendCtx extends Record<string, any>> = Partial<Context & ExtendCtx>;
+
 
 // ---------------------------------
 declare global {
   interface Window {
     DEBUG: boolean;
     IS_DEBUG: boolean;
-
-    // [callback: string]: AnyFunction<any>;
   }
 }
