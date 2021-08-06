@@ -87,6 +87,9 @@ export default async function fetcher(
       fetchOption.body = (typeof sendData === 'string' ? sendData : JSON.stringify(sendData)) as BodyInit;
       fetchOption.headers['Content-Type'] = 'application/json;charset=utf-8';
     }
+  } else if (payload) {
+    // 就算是非 post/put 请求，也可以强行传入 payload，但这里不会主动修改 content-type
+    fetchOption.body = (typeof payload === 'string' ? payload : JSON.stringify(payload)) as BodyInit;
   }
 
   const connector = api.indexOf('?') > 0 ? '&' : '?';
