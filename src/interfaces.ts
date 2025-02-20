@@ -68,9 +68,9 @@ export interface DownloadOptions extends FetcherOptions {
   filename?: string;
 }
 
-export interface UploadOptons extends FetcherOptions {
+export interface UploadOptions extends FetcherOptions {
   /** [upload] upload file or use payload.file */
-  file: File| { name: string, file: File };
+  file: File | { name: string; file: File };
 }
 
 export interface Context extends FetcherOptions {
@@ -93,7 +93,6 @@ export type MiddlewareFunction = (ctx: Context) => Promise<any>;
 
 /** 数据请求参数 */
 export type RequestOptions<ExtendCtx extends Record<string, any>> = Partial<Context & ExtendCtx>;
-
 
 // ---------------------------------
 declare global {

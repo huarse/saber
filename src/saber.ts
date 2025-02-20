@@ -61,12 +61,12 @@ export default class Saber<ExtendCtx extends Record<string, any>> {
 
   run(api: string, options?: RequestOptions<ExtendCtx>) {
     if (options && Reflect.has(options, 'next')) {
-      throw new Error('options can not contain property: \'next\'');
+      throw new Error("options can not contain property: 'next'");
     }
 
     this._invoker = this._invoker || createApplyChain(this._middlewares, this);
 
-    return this._invoker({ api, ...options || {}});
+    return this._invoker({ api, ...(options || {}) });
   }
 
   public async request(api: string, options?: RequestOptions<ExtendCtx>) {

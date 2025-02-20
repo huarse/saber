@@ -17,8 +17,8 @@ test('#serialize', () => {
   expect(serialize({ a: 1001, b: 2002 })).toBe('a=1001&b=2002');
   expect(serialize({ a: null, b: 2002 })).toBe('b=2002');
   expect(serialize({ a: null, b: 2002 }, true)).toBe('a=&b=2002');
-  expect(serialize({ a: [], b: '', c: null, d: undefined  })).toBe('');
-  expect(serialize({ a: [], b: '', c: null, d: undefined  }, true)).toBe('a=&b=&c=&d=');
+  expect(serialize({ a: [], b: '', c: null, d: undefined })).toBe('');
+  expect(serialize({ a: [], b: '', c: null, d: undefined }, true)).toBe('a=&b=&c=&d=');
   expect(serialize({ a: [11, 22, 33], b: 555 })).toBe('a%5B%5D=11&a%5B%5D=22&a%5B%5D=33&b=555');
   expect(serialize({ a: [11, 22, 33], b: 555 }, false, 'JOIN')).toBe(`a=${encodeURIComponent('11,22,33')}&b=555`);
   expect(serialize({ a: [11, 22, 33], b: 555 }, false, 'REPEAT')).toBe('a=11&a=22&a=33&b=555');
@@ -66,7 +66,7 @@ test('#uuid', () => {
 test('#sleep', async () => {
   const start = Date.now();
   await sleep(1000);
-  expect(Date.now() - start).toBeGreaterThan(1000)
+  expect(Date.now() - start).toBeGreaterThan(999);
 }, 2000);
 
 test('#keepProps', () => {

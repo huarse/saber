@@ -50,18 +50,32 @@ export default async function fetcher(
 
   // 解构参数，只保留 fetch 需要的参数
   const { data, payload, search, dataType, serializeOptions = {} as Record<string, any>, fetchErrorMessge } = options;
-  const fetchOption: RequestInit = keepProps(options, [
-    'body', 'cache', 'credentials', 'headers', 'integrity',
-    'keepalive', 'method', 'mode', 'redirect', 'referrer',
-    'referrerPolicy', 'signal',
-  ], 'KEEP');
+  const fetchOption: RequestInit = keepProps(
+    options,
+    [
+      'body',
+      'cache',
+      'credentials',
+      'headers',
+      'integrity',
+      'keepalive',
+      'method',
+      'mode',
+      'redirect',
+      'referrer',
+      'referrerPolicy',
+      'signal',
+    ],
+    'KEEP',
+  );
 
   // POST, PUT
   const isSender = /^p/i.test(options.method);
   // 用于 POST/PUT 请求中既有 data, 又有 payload 时，data 作为 search
   const searchParams = search || (!isSender || payload ? data : null);
 
-  if (isSender) { // PUT, POST
+  if (isSender) {
+    // PUT, POST
     let sendData = payload || data;
     let isFormData = sendData instanceof FormData;
     const isPureData = sendData instanceof Blob || sendData instanceof ArrayBuffer;
@@ -93,9 +107,11 @@ export default async function fetcher(
   }
 
   const connector = api.indexOf('?') > 0 ? '&' : '?';
-  const url = searchParams ? `${api}${connector}${serialize(searchParams, serializeOptions.holdEmpty, serializeOptions.listHandler)}` : api;
+  const url = searchParams
+    ? `${api}${connector}${serialize(searchParams, serializeOptions.holdEmpty, serializeOptions.listHandler)}`
+    : api;
 
-  const res = await fetch(url, fetchOption).catch(error => {
+  const res = await fetch(url, fetchOption).catch((error) => {
     console.warn('ERROR in fetch: ', error);
     throw new Error(fetchErrorMessge || defaultConfig.fetchError);
   });
@@ -109,7 +125,7 @@ export default async function fetcher(
     return responseCallback(res, options);
   }
 
-  return await res.json().catch(error => {
+  return await res.json().catch((error) => {
     console.warn('ERROR in res.json(): ', error);
     throw new Error(fetchErrorMessge || defaultConfig.parseError);
   });

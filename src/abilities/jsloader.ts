@@ -7,7 +7,7 @@ import { logger } from '../utils/common';
 
 const CACHE_STORE = {};
 const QUEUE_STORE: {
-  [x: string]: { resolve: AnyFunction<any>, reject: AnyFunction<any>}[];
+  [x: string]: { resolve: AnyFunction<any>; reject: AnyFunction<any> }[];
 } = {};
 
 export interface JsLoaderOptions extends Record<string, any> {
@@ -43,9 +43,9 @@ export default function jsLoader(src: string, options: JsLoaderOptions = {}) {
 
     const handleError = (message: string) => {
       if (options.ignoreError) {
-        QUEUE_STORE[baseSrc].forEach(x => x.resolve(0));
+        QUEUE_STORE[baseSrc].forEach((x) => x.resolve(0));
       } else {
-        QUEUE_STORE[baseSrc].forEach(x => x.reject(new Error(message)));
+        QUEUE_STORE[baseSrc].forEach((x) => x.reject(new Error(message)));
       }
       QUEUE_STORE[baseSrc] = null;
     };
@@ -62,7 +62,7 @@ export default function jsLoader(src: string, options: JsLoaderOptions = {}) {
     }, options.timeout);
 
     const clear = () => {
-      clearTimeout(timmer), timmer = null;
+      clearTimeout(timmer), (timmer = null);
       document.body.removeChild(script);
       script = undefined;
     };
@@ -71,7 +71,7 @@ export default function jsLoader(src: string, options: JsLoaderOptions = {}) {
       clear();
       options.cache && (CACHE_STORE[baseSrc] = true);
       logger.info(`${baseSrc} load success! use ${Date.now() - begin}ms`);
-      QUEUE_STORE[baseSrc].forEach(x => x.resolve(200));
+      QUEUE_STORE[baseSrc].forEach((x) => x.resolve(200));
       QUEUE_STORE[baseSrc] = null;
     };
 

@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ES2020",
     "module": "CommonJS",
     "allowJs": true,
     "declaration": true,
-    "declarationDir": "types",
     "outDir": "lib",
     "experimentalDecorators": true,
     "esModuleInterop": true,

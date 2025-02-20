@@ -2,10 +2,10 @@
 // @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/30 11:20
 
-import { UploadOptons } from '../interfaces';
+import { UploadOptions } from '../interfaces';
 import fetcher from './fetcher';
 
-export default async function upload(api: string, options: UploadOptons) {
+export default async function upload(api: string, options: UploadOptions) {
   options = {
     payload: {},
     ...options,

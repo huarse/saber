@@ -18,7 +18,7 @@ const defaultConfig = {
  * @param api script url
  * @param options jsonp options
  */
-export default function jsonp (api: string, options: JsonpOptions) {
+export default function jsonp(api: string, options: JsonpOptions) {
   options = {
     callback: `jsonp__${CALLBACK_ID++}`,
     jsonpCallcack: 'callback',
@@ -43,7 +43,7 @@ export default function jsonp (api: string, options: JsonpOptions) {
     }, options.timeout);
 
     const clear = () => {
-      clearTimeout(timmer), timmer = null;
+      clearTimeout(timmer), (timmer = null);
       document.body.removeChild(script);
       (<any>window)[callback] = () => console.warn(`callback ${callback} has been destroyed!`);
       script = undefined;

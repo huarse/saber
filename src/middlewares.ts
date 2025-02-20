@@ -12,7 +12,9 @@ import download from './abilities/download';
 const TYPE_MAPPING = {
   ajax: fetcher,
   fetcher: fetcher,
-  jsonp, upload, download,
+  jsonp,
+  upload,
+  download,
 };
 
 /** 填充参数 */
