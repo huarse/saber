@@ -40,36 +40,7 @@ saber.use(async ctx => {
 
 ### 工具类方法
 
-1. serialize 参数序列化
-
-```ts
-import { serialize } from '@irim/saber';
-
-serialize({ a: 1001, b: 'foo' }); // a=1001&b=foo
-serialize({ a: [100, 200] }); // a[]=100&a[]=200
-serialize({ a: [100, 200] }, false, 'JOIN'); // a=100,200
-serialize({ a: [100, 200] }, false, 'REPEAT'); // a=100&a=200
-```
-
-2. random 返回范围内的随机整数
-
-```ts
-import { random } from '@irim/saber';
-
-random(); // 0 ~ 100
-random(50); // 0 ~ 50
-random(25, 75); // 25 ~ 75
-```
-
-3. uuid 返回一个唯一的 guid
-
-```ts
-import { uuid } from '@irim/saber';
-
-uuid(); // unique string, never repeat
-```
-
-4. logger 打印日志
+* logger 打印日志
 
 ```ts
 import { logger } from '@irim/saber';

@@ -21,14 +21,14 @@ const defaultConfig = {
 export default function jsonp(api: string, options: JsonpOptions) {
   options = {
     callback: `jsonp__${CALLBACK_ID++}`,
-    jsonpCallcack: 'callback',
+    jsonpCallback: 'callback',
     timeout: defaultConfig.timeout,
     ...options,
   };
 
   const search: Record<string, any> = options.search || options.data || options.query || options.params || {};
-  const callback: string = search[options.jsonpCallcack] || options.callback;
-  search[options.jsonpCallcack] = callback;
+  const callback: string = search[options.jsonpCallback] || options.callback;
+  search[options.jsonpCallback] = callback;
 
   return new Promise((resolve, reject) => {
     const tmp = api.indexOf('?') > -1 ? '&' : '?';

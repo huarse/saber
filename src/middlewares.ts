@@ -28,7 +28,7 @@ export async function fillOptions(ctx: Context) {
   await ctx.next();
 }
 
-/** delay middelware */
+/** delay middleware */
 export async function delay(ctx: Context) {
   if (ctx.meta?.delay) {
     await sleep(ctx.meta.delay);
@@ -50,9 +50,14 @@ export async function printLogger(ctx: Context) {
   logger[logFn](`<<< ${ctx.type || 'net'} ${ctx.method || 'GET'} ${ctx.api || ctx.url} ${duration}ms`, ctx.response);
 }
 
-/** fetch adapter middlewares */
+/** fetch adapter middleware */
 export async function adapter(ctx: Context) {
   const fn = TYPE_MAPPING[ctx.type] || TYPE_MAPPING.ajax;
+
+  // 可以在自定义中间件中提前返回结果
+  if (ctx.response !== undefined) {
+    return await ctx.next();
+  }
 
   ctx.response = await fn(ctx.api, ctx);
   return await ctx.next();

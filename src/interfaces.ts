@@ -2,8 +2,6 @@
 // @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 16:57
 
-/** 基础非空类型 */
-export type BaseType = string | number | boolean;
 /** 任意方法 */
 export type AnyFunction<T> = (...args: any) => T;
 
@@ -17,7 +15,7 @@ export interface LoggerTypes {
 }
 
 /** 请求方法 */
-export type FetchMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTION'; //  | 'get' | 'post' | 'put' | 'delete' | 'head' | 'option';
+export type FetchMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'HEAD' | 'OPTION' | 'PATCH';
 
 /**
  * 序列化时，数组处理方式
@@ -51,14 +49,14 @@ export interface FetcherOptions extends Record<string, any> {
     listHandler?: ListHandlerType;
   };
   /** fetch 出错时的默认错误信息 */
-  fetchErrorMessge?: string;
+  fetchErrorMessage?: string;
 }
 
 export interface JsonpOptions extends FetcherOptions {
   /** [jsonp] callback method name */
   callback?: string;
   /** [jsonp] callback method key, default is 'callback' */
-  jsonpCallcack?: string;
+  jsonpCallback?: string;
   /** [jsonp] request timeout */
   timeout?: number;
 }
@@ -82,7 +80,11 @@ export interface Context extends FetcherOptions {
   /** 执行下一个中间件方法 */
   next: AnyFunction<Promise<any>>;
   /** [middleware] 元信息，用于一些中间件 */
-  meta?: Record<string, any>;
+  meta?: {
+    /** 延迟执行，单位毫秒 */
+    delay?: number;
+    [x: string]: any;
+  };
   /** 返回数据 */
   response?: any;
   /** 原信息，用于备份 */

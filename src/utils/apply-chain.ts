@@ -2,11 +2,7 @@
 // @author CAIHUAZHI <huarse@gmail.com>
 // @create 2019/12/30 14:17
 
-export interface MiddlewareContext extends Record<string, any> {
-  next: () => Promise<any>;
-}
-
-export type MiddlewareFunction = (ctx: MiddlewareContext) => Promise<any>;
+import { MiddlewareFunction } from '../interfaces';
 
 /**
  * 创建链式调用

@@ -69,6 +69,7 @@ export default class Saber<ExtendCtx extends Record<string, any>> {
     return this._invoker({ api, ...(options || {}) });
   }
 
+  // TODO 支持临时传入 middlewares
   public async request(api: string, options?: RequestOptions<ExtendCtx>) {
     const { response } = await this.run(api, options);
     return response;

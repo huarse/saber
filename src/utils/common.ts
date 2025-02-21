@@ -2,10 +2,10 @@
 // @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 00:12
 
-import { BaseType, ListHandlerType, LoggerTypes } from '../interfaces';
+import { ListHandlerType, LoggerTypes } from '../interfaces';
 
 /** noop function */
-export const noop = (x: any) => x;
+export const noop = <T = any>(x: T): T => x;
 
 /**
  * is empty object (null, undefined or empty string)
@@ -18,9 +18,8 @@ export function isEmpty(obj: any): boolean {
 /**
  * safety parse JSON
  * @param str
- * @param silent 是否不打印错误日志
  */
-export function parseJSON(str: string, silent = false): Record<string, any> {
+export function parseJSON<T = Record<string, any>>(str: string): T {
   if (typeof str === 'object') {
     return str;
   }
@@ -28,7 +27,7 @@ export function parseJSON(str: string, silent = false): Record<string, any> {
   try {
     return JSON.parse(str);
   } catch (ex) {
-    !silent && console.warn('WARNING: error in parseJSON: ', ex);
+    console.warn('WARNING: error in parseJSON: ', ex);
     return null;
   }
 }
@@ -63,7 +62,7 @@ export const logger = (function (): LoggerTypes {
     (...args: any[]) => {
       const prefix = typeof args[0] === 'string' ? args.shift() : '';
       // eslint-disable-next-line
-    valid && console.log(`%c%s%c【${type}】${prefix}`, 'color:#999', timestamp(), `color:${color}`, ...args);
+      valid && console.log(`%c%s%c【${type}】${prefix}`, 'color:#999', timestamp(), `color:${color}`, ...args);
     };
 
   return LOGGER_TYPES.reduce((prev, item) => {
@@ -72,19 +71,8 @@ export const logger = (function (): LoggerTypes {
 })();
 
 /**
- * 创建一个uuid
- */
-export function uuid(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16).toUpperCase();
-  });
-}
-
-/**
  * 睡眠一定时间
- * @param mill millseconds
+ * @param mill milliseconds
  */
 export function sleep(mill: number): Promise<void> {
   if (!mill) return Promise.resolve();
@@ -114,15 +102,15 @@ export function random(min?: number, max?: number): number {
  * JSON 序列化
  * @param params
  * @param holdEmpty 是否保留空参数
- * @param listHandler 数组处理方式, 默认 `TILE`
+ * @param listHandler 数组处理方式, 默认 `REPEAT`
  * - `TILE`: 平铺 `a[]=1&a[]=2`
  * - `REPEAT`: 重复 `a=1&a=2`
  * - `JOIN`: 用逗号连接 `a=1,2`
  */
 export function serialize(
-  params: Record<string, BaseType | BaseType[]> | string,
+  params: Record<string, any> | string,
   holdEmpty = false,
-  listHandler: ListHandlerType = 'TILE',
+  listHandler: ListHandlerType = 'REPEAT',
 ): string {
   if (typeof params === 'string') return params;
 
@@ -141,38 +129,26 @@ export function serialize(
       switch (listHandler) {
         case 'JOIN':
           return `${prev}&${key}=${encodeURIComponent(value.join(','))}`;
-        case 'REPEAT':
-          return `${prev}&${value.map((v) => `${key}=${encodeURIComponent(v)}`).join('&')}`;
         case 'TILE':
-        default:
           return `${prev}&${value.map((v) => `${key}%5B%5D=${encodeURIComponent(v)}`).join('&')}`;
+        default:
+          return `${prev}&${value.map((v) => `${key}=${encodeURIComponent(v)}`).join('&')}`;
       }
     }, '')
     .replace(/^&/, '');
 }
 
 /**
- * 从一个 json 对象中解析剔除无用的属性
+ * 从一个 JSON 对象中解析剔除无用的属性，返回指定的属性
  * @param obj
- * @param keys 要操作的属性
- * @param mode KEEP(默认): 保留 keys，KICK 剔除 keys
- * @return 返回一个新的对象
+ * @param keys 要保留的属性
  */
-export function keepProps(
-  obj: Record<string, any>,
-  keys: string[],
-  mode: 'KEEP' | 'KICK' = 'KEEP',
-): Record<string, any> {
-  const newObj: Record<string, any> = mode === 'KEEP' ? {} : { ...obj };
+export function keepProps<T = Record<string, any>>(obj: any, keys: Array<keyof T>): T {
+  const newObj = {} as T;
 
   keys.forEach((key) => {
     if (!Reflect.has(obj, key)) return;
-
-    if (mode === 'KEEP') {
-      newObj[key] = obj[key];
-    } else {
-      Reflect.deleteProperty(newObj, key);
-    }
+    newObj[key] = obj[key];
   });
 
   return newObj;

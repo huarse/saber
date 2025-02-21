@@ -49,33 +49,30 @@ export default async function fetcher(
   };
 
   // 解构参数，只保留 fetch 需要的参数
-  const { data, payload, search, dataType, serializeOptions = {} as Record<string, any>, fetchErrorMessge } = options;
-  const fetchOption: RequestInit = keepProps(
-    options,
-    [
-      'body',
-      'cache',
-      'credentials',
-      'headers',
-      'integrity',
-      'keepalive',
-      'method',
-      'mode',
-      'redirect',
-      'referrer',
-      'referrerPolicy',
-      'signal',
-    ],
-    'KEEP',
-  );
+  const { data, payload, search, dataType, serializeOptions = {} as Record<string, any>, fetchErrorMessage } = options;
+  const fetchOption: RequestInit = keepProps(options, [
+    'body',
+    'cache',
+    'credentials',
+    'headers',
+    'integrity',
+    'keepalive',
+    'method',
+    'mode',
+    'redirect',
+    'referrer',
+    'referrerPolicy',
+    'signal',
+    'window',
+  ]);
 
   // POST, PUT
   const isSender = /^p/i.test(options.method);
-  // 用于 POST/PUT 请求中既有 data, 又有 payload 时，data 作为 search
+  // 用于 POST/PUT/PATCH 请求中既有 data, 又有 payload 时，data 作为 search
   const searchParams = search || (!isSender || payload ? data : null);
 
   if (isSender) {
-    // PUT, POST
+    // PUT, POST, PATCH
     let sendData = payload || data;
     let isFormData = sendData instanceof FormData;
     const isPureData = sendData instanceof Blob || sendData instanceof ArrayBuffer;
@@ -102,18 +99,18 @@ export default async function fetcher(
       fetchOption.headers['Content-Type'] = 'application/json;charset=utf-8';
     }
   } else if (payload) {
-    // 就算是非 post/put 请求，也可以强行传入 payload，但这里不会主动修改 content-type
+    // 就算是非 post/put/patch 请求，也可以强行传入 payload，但这里不会主动修改 content-type
     fetchOption.body = (typeof payload === 'string' ? payload : JSON.stringify(payload)) as BodyInit;
   }
 
   const connector = api.indexOf('?') > 0 ? '&' : '?';
   const url = searchParams
-    ? `${api}${connector}${serialize(searchParams, serializeOptions.holdEmpty, serializeOptions.listHandler)}`
+    ? `${api}${connector}${serialize(searchParams as any, serializeOptions.holdEmpty, serializeOptions.listHandler)}`
     : api;
 
   const res = await fetch(url, fetchOption).catch((error) => {
     console.warn('ERROR in fetch: ', error);
-    throw new Error(fetchErrorMessge || defaultConfig.fetchError);
+    throw new Error(fetchErrorMessage || defaultConfig.fetchError);
   });
 
   if (res.status < 200 || res.status > 399) {
@@ -127,6 +124,6 @@ export default async function fetcher(
 
   return await res.json().catch((error) => {
     console.warn('ERROR in res.json(): ', error);
-    throw new Error(fetchErrorMessge || defaultConfig.parseError);
+    throw new Error(fetchErrorMessage || defaultConfig.parseError);
   });
 }
