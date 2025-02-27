@@ -5,9 +5,9 @@
 import { MiddlewareFunction } from '../interfaces';
 
 /**
- * 创建链式调用
- * @param middlewares
- * @param scope
+ * 创建中间件链式调用
+ * @param middlewares 中间件函数数组
+ * @param scope 中间件执行上下文
  */
 export default function createApplyChain(middlewares: MiddlewareFunction[], scope?: any) {
   return async function (options: Record<string, any>) {

@@ -2,7 +2,7 @@
 // @author CAIHUAZHI <huarse@gmail.com>
 // @create 2020/08/28 00:48
 
-import { serialize, parseJSON, isEmpty, noop, timestamp, logger, sleep } from '../src';
+import { serialize, parseJSON, isEmpty, noop, timestamp, logger, sleep, random, json2FormData } from '../src';
 
 test('#parseJSON', () => {
   expect(parseJSON('{ "a": 1001 }')).toHaveProperty('a', 1001);
@@ -59,4 +59,18 @@ test('#logger', () => {
   expect(typeof logger.line).toBe('function');
   expect(typeof logger.success).toBe('function');
   expect(typeof logger.warn).toBe('function');
+});
+
+test('#random', () => {
+  expect(random()).toBeGreaterThanOrEqual(0);
+  expect(random()).toBeLessThanOrEqual(100);
+  expect(random(100, 200)).toBeGreaterThanOrEqual(100);
+  expect(random(100, 200)).toBeLessThanOrEqual(200);
+});
+
+test('#json2FormData', () => {
+  expect(json2FormData({ a: 1001 }).get('a')).toBe('1001');
+  expect(json2FormData({ a: 1001, b: 2002 }).get('a')).toBe('1001');
+  expect(json2FormData({ a: null, b: 2002 }).get('b')).toBe('2002');
+  expect(json2FormData({ a: null, b: 2002 }).get('a')).toBe('null');
 });

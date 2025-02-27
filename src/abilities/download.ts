@@ -22,5 +22,6 @@ export default function download(api: string, options: DownloadOptions) {
     }
     link.click();
     URL.revokeObjectURL(link.href);
+    return blob;
   });
 }

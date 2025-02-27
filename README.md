@@ -53,6 +53,22 @@ logger.error('hello world~');
 logger.line('hello world~');
 ```
 
+* sleep 睡眠
+
+```ts
+import { sleep } from '@irim/saber';
+
+sleep(1000);
+```
+
+* random 随机数，返回一个整数随机数 [min, max] (包含 min and max)
+
+```ts
+import { random } from '@irim/saber';
+
+console.log(random(1, 10));
+```
+
 ## CHANGELOG
 
 <!-- - **version**: change logs -->

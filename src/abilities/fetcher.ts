@@ -25,8 +25,8 @@ const STATUS_MAP: Record<number, string> = {
 };
 
 const defaultConfig = {
-  fetchError: '请求异常，请稍后再试。',
-  parseError: '数据解析异常',
+  fetchError: 'Request failed. Please try again later.',
+  parseError: 'Failed to parse response data',
 };
 
 /**
@@ -40,7 +40,7 @@ const defaultConfig = {
 export default async function fetcher(
   api: string,
   options: FetcherOptions = {},
-  responseCallback?: (res: Response, options: FetcherOptions) => any,
+  responseCallback?: (res: Response, options: FetcherOptions) => Promise<any>,
 ): Promise<any> {
   options = {
     method: options.method || 'GET',
